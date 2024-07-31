@@ -37,10 +37,10 @@ public class ProductService {
     @Transactional()
     public ProductResponseDto updateProduct(Long id, ProductMypriceRequestDto requestDto) {
         int myprice = requestDto.getMyprice();
-        if(myprice < MIN_MY_PRICE){
+        if (myprice < MIN_MY_PRICE) {
             throw new IllegalArgumentException("유효하지 않은 관심 가격입니다. 최소 " + MIN_MY_PRICE + "원 이상으로 설정해 주세요.");
         }
-        Product product = productRepository.findById(id).orElseThrow(()->
+        Product product = productRepository.findById(id).orElseThrow(() ->
                 new NullPointerException("해당 상품을 찾을 수 없습니다.")
         );
 
@@ -59,10 +59,9 @@ public class ProductService {
         Page<Product> productList;
 
         //user 권한 확인 후 로직 수행(User or Admin)
-        if (userRoleEnum == UserRoleEnum.USER){
+        if (userRoleEnum == UserRoleEnum.USER) {
             productList = productRepository.findAllByUser(user, pageable);
-        }
-        else{
+        } else {
             productList = productRepository.findAll(pageable);
         }
 
@@ -71,7 +70,7 @@ public class ProductService {
 
     @Transactional
     public void updateBySearch(Long id, ItemDto itemDto) {
-        Product product = productRepository.findById(id).orElseThrow(()->
+        Product product = productRepository.findById(id).orElseThrow(() ->
                 new NullPointerException("해당 상품은 존재하지 않습니다.")
         );
         product.updateByIyemDto(itemDto);
@@ -79,7 +78,7 @@ public class ProductService {
 
     public void addFolder(Long productId, Long folderId, User user) {
         Product product = productRepository.findById(productId).orElseThrow(
-                ()-> new NullPointerException("해당 상품이 존재하지 않습니다.")
+                () -> new NullPointerException("해당 상품이 존재하지 않습니다.")
         );
 
         Folder folder = folderRepository.findById(folderId).orElseThrow(
@@ -91,9 +90,9 @@ public class ProductService {
             throw new IllegalArgumentException("회원님의 관심상품이 아니거나, 회원님의 폴더가 아닙니다.");
         }
 
-        Optional<ProductFolder> overlapFolder = productFolderRepository.findByProductAndFolder(product,folder);
+        Optional<ProductFolder> overlapFolder = productFolderRepository.findByProductAndFolder(product, folder);
 
-        if(overlapFolder.isPresent()) {
+        if (overlapFolder.isPresent()) {
             throw new IllegalArgumentException("중복된 폴더입니다.");
         }
 

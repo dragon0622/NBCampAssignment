@@ -17,7 +17,7 @@ public class ProductResponseDto {
     private String image;
     private int lprice;
     private int myprice;
-    
+
     private List<FolderResponseDto> productFolderList = new ArrayList<>();
 
     public ProductResponseDto(Product product) {

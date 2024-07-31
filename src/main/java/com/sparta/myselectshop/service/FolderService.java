@@ -24,12 +24,11 @@ public class FolderService {
         List<Folder> folderList = new ArrayList<>();
 
         for (String folderName : folderNames) {
-            if (!isExistFolderName(folderName, existFolderList)){
+            if (!isExistFolderName(folderName, existFolderList)) {
                 // 중복 폴더가 없을 시
                 Folder folder = new Folder(folderName, user);
                 folderList.add(folder);
-            }
-            else{
+            } else {
                 //중복 폴더 존재 시
                 throw new IllegalArgumentException("폴더명이 중복되었습니다.");
             }
