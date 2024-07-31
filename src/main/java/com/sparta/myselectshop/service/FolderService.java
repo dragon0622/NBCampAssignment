@@ -26,7 +26,7 @@ public class FolderService {
         for (String folderName : folderNames) {
             if (!isExistFolderName(folderName, existFolderList)){
                 // 중복 폴더가 없을 시
-                Folder folder = new Folder();
+                Folder folder = new Folder(folderName, user);
                 folderList.add(folder);
             }
             else{
@@ -51,10 +51,8 @@ public class FolderService {
     }
 
     private boolean isExistFolderName(String folderName, List<Folder> existFolderList) {
-        for (Folder existfolder : existFolderList) {
-            if (folderName.equals(existfolder.getName())){
-                return true;
-            }
+        for (Folder folder : existFolderList) {
+            return folder.getName().equals(folderName);
         }
         return false;
     }
